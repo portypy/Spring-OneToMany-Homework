@@ -6,14 +6,18 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "users")
 public class User {
 
-    @Column(name = "name")
-    private String name;
+
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
+    private String name;
 
     @JsonIgnoreProperties({"user"})
     @OneToMany(mappedBy = "user")
