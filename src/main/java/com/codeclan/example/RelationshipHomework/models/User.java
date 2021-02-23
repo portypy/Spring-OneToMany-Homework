@@ -1,11 +1,22 @@
 package com.codeclan.example.RelationshipHomework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 public class User {
+
+    @Column(name = "name")
     private String name;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @JsonIgnoreProperties({"user"})
+    @OneToMany(mappedBy = "user")
     private List<Folder>folders;
 
     public User(String name) {

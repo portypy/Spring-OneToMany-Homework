@@ -1,14 +1,30 @@
 package com.codeclan.example.RelationshipHomework.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Entity
+@Table(name = "folders")
 public class Folder {
 
-    private String title;
-    private List<File>files;
-    private User user;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(name = "name")
+    private String title;
+
+    @JsonIgnoreProperties({"folder"})
+    @OneToMany(mappedBy = "folder")
+    private List<File>files;
+
+    @ManyToOne
+    @JsonIgnoreProperties({"folders"})
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
     public Folder(String title, User user) {
         this.title = title;
